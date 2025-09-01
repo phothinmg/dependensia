@@ -1,0 +1,48 @@
+{
+  "name": "dependensia",
+  "version": "0.0.1",
+  "description": "Generating dependencies graph from a given entry file",
+  "scripts": {
+    "lint": "biome check src --write",
+    "format": "biome format --write",
+    "build": "tsx build.ts"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "keywords": [
+    "dependencies",
+    "dependency",
+    "graph",
+    "circular"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "readme.md",
+    "package.json"
+  ],
+  "author": "Pho Thin Mg <phothinmg@disroot.org>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
+    "tsx": "^4.20.5"
+  }
+}

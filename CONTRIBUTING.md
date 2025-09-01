@@ -7,7 +7,7 @@ Thank you for your interest in contributing to **dependensia**! This guide will 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/phothinmg/mhaehko.git
+   git clone https://github.com/phothinmg/dependensia.git
    cd dependentiae
    ```
 
@@ -36,7 +36,7 @@ Thank you for your interest in contributing to **dependensia**! This guide will 
 
 ### 1. Issues & Feature Requests
 
-- Use [GitHub Issues](https://github.com/phothinmg/dependentiae/issues) to report bugs or request features.
+- Use [GitHub Issues](https://github.com/phothinmg/dependensia/issues) to report bugs or request features.
 
 ### 2. Pull Requests
 

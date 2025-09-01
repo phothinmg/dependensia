@@ -1,7 +1,7 @@
 {
   "name": "dependensia",
   "version": "0.0.1",
-  "description": "Generating dependencies graph from a given entry file",
+  "description": "Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs",
   "scripts": {
     "lint": "biome check src --write",
     "format": "biome format --write",
@@ -44,5 +44,16 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "tsx": "^4.20.5"
+  },
+   "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/phothinmg/dependensia.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/phothinmg/dependensia/issues"
   }
 }

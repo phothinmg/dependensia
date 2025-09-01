@@ -33,6 +33,15 @@ async function forceRemoveDir(dirPath: string) {
 // --------------------------------------- options of build process --------------------
 const entry = "src/index.ts";
 const outDir = path.resolve(process.cwd(), "dist");
+const licenseText = `
+/*! *****************************************************************************
+Copyright (c) Pho Thin Mg <phothinmg@disroot.org>
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+***************************************************************************** */
+`.trim();
 // -------------------------------------------------------------------------------------
 // ------------------------------ Bundle Files -----------------------------------------
 console.time("Compiling done in");
@@ -159,6 +168,7 @@ Object.entries(cjsCreatedFiles).map(async ([outName, content]) => {
       .trim()
       .replace("export default dependensia;", "export = dependensia;");
   }
+  content = `${licenseText}\n${content}`;
   outName = outName.replace(/.js/g, ".cjs");
   outName = outName.replace(/.map.js/g, ".map.cjs");
   outName = outName.replace(/.d.ts/g, ".d.cts");
@@ -189,6 +199,7 @@ Object.entries(esmCreatedFiles).map(async ([outName, content]) => {
   if (!existsSync(dir)) {
     await fs.mkdir(dir, { recursive: true });
   }
+  content = `${licenseText}\n${content}`;
   await wait(500);
   await fs.writeFile(outName, content);
 });

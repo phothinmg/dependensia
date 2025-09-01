@@ -1,3 +1,7 @@
+// key part of core library modules
+// handle dependencies of entry file by Typescript API -> collecting  <- get package data , resolved file's extensions
+// collected (DAG,external modules,warning) -> Dependensia APIs ->
+// Analyzed dependencies data using Depth-First Search (DFS) Algorithm,improved by DeepSeek,Windsurf,Github Copilot.
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";

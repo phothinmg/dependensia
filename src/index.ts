@@ -1,3 +1,10 @@
+/*! *****************************************************************************
+Copyright (c) Pho Thin Mg <phothinmg@disroot.org>
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+***************************************************************************** */
 import path from "node:path";
 import analyzeDependencies, {
 	type CircularDependency,
@@ -77,53 +84,56 @@ interface Dependensia {
  * @returns An object containing methods to query the dependency graph.
  */
 async function dependensia(entry: string): Promise<Dependensia> {
+	// I created and used utility function runPromise for Promise resolved.
+	// Function-base approach for flexibility and simplicity to  returning an object with methods.
+	// This pattern is idiomatic for many Node.js libraries.
 	const root = process.cwd();
 	const pkg: PackageInfo = await runPromise(getPackageInfo, undefined, root);
-	const collected = await runPromise<CollectedDepsInfo>(
+	const collectedData = await runPromise<CollectedDepsInfo>(
 		collectDependencies,
 		1000,
 		entry,
 		pkg,
 		root,
 	);
-	const obj = collected.dependencies;
-	const _npm = await runPromise<string[]>(
+	const graphObj = collectedData.dependencies;
+	const npmModules = await runPromise<string[]>(
 		mergeStringArr,
 		1000,
-		collected.collectedNpmModules,
+		collectedData.collectedNpmModules,
 	);
-	const _node = await runPromise<string[]>(
+	const nodeModules = await runPromise<string[]>(
 		mergeStringArr,
 		1000,
-		collected.collectedNodeModules,
+		collectedData.collectedNodeModules,
 	);
-	const _warn = await runPromise<string[]>(
+	const warning = await runPromise<string[]>(
 		mergeStringArr,
 		1000,
-		collected.collectedWarning,
+		collectedData.collectedWarning,
 	);
-	const _deps = await runPromise<Record<string, string[]>>(
+	const depsObj = await runPromise<Record<string, string[]>>(
 		createGraph,
 		1000,
-		obj,
+		graphObj,
 	);
-	const _dag = await runPromise<string[]>(topoSort, 1000, _deps);
-	const _mutual = await runPromise<string[][]>(
+	const sortedGraph = await runPromise<string[]>(topoSort, 1000, depsObj);
+	const mutualFiles = await runPromise<string[][]>(
 		findMutualDependencies,
 		1000,
-		_deps,
+		depsObj,
 	);
-	const _leaves = await runPromise<string[]>(findLeafFiles, 1000, _deps);
+	const _leaves = await runPromise<string[]>(findLeafFiles, 1000, depsObj);
 
-	const _text = await runPromise<string>(visualizeDependencies, 1000, _deps);
+	const _text = await runPromise<string>(visualizeDependencies, 1000, depsObj);
 
-	const _analyze = await runPromise<DependencyAnalysis>(
+	const analyzedData = await runPromise<DependencyAnalysis>(
 		analyzeDependencies,
 		1000,
-		_deps,
+		depsObj,
 	);
 
-	const _chain = _analyze.dependencyChains;
+	const _chain = analyzedData.dependencyChains;
 
 	function dependents(file: string): string[] {
 		const _path = path.relative(root, file);
@@ -133,22 +143,18 @@ async function dependensia(entry: string): Promise<Dependensia> {
 		return [];
 	}
 
-	function entryToLeaf(): string[][] {
-		return _analyze.entryToLeafChains;
-	}
-
 	return {
-		sort: (): string[] => _dag,
-		npm: (): string[] => _npm,
-		node: (): string[] => _node,
-		deps: (): Record<string, string[]> => _deps,
-		warn: (): string[] => _warn,
-		mutual: (): string[][] => _mutual,
+		sort: (): string[] => sortedGraph,
+		npm: (): string[] => npmModules,
+		node: (): string[] => nodeModules,
+		deps: (): Record<string, string[]> => depsObj,
+		warn: (): string[] => warning,
+		mutual: (): string[][] => mutualFiles,
 		leaf: (): string[] => _leaves,
-		circular: (): CircularDependency[] => _analyze.circularDependencies,
+		circular: (): CircularDependency[] => analyzedData.circularDependencies,
 		dependents,
 		chain: (): Record<string, string[]> => _chain,
-		entryToLeaf,
+		entryToLeaf:(): string[][]=> analyzedData.entryToLeafChains,
 		textGraph: (): string => _text,
 	};
 }

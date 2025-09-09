@@ -8,7 +8,7 @@ Thank you for your interest in contributing to **dependensia**! This guide will 
 
    ```bash
    git clone https://github.com/phothinmg/dependensia.git
-   cd dependentiae
+   cd dependensia
    ```
 
 2. **Install dependencies**

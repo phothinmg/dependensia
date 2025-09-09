@@ -1,47 +1,65 @@
 # dependensia
 
-## About
+[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
 
-Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs.
+## Overview
 
-## Features
+A static analysis tool designed to examine TypeScript and JavaScript projects and produce dependency graphs,using TypeScript APIs.
+
+### Key Features
 
 - **Dependency Graph Generation:** Analyze TypeScript/JavaScript projects to map file dependencies.
-- **Circular Dependency Detection:** Identify cycles in your codebase.
-- **Topological Sorting:** Get files in dependency order.
+- **Circular Dependency Detection:** Implements depth-first search (DFS) algorithms to identify cycles in the dependency graph, helping developers locate problematic import patterns.
+- **Topological Sorting:** Files are ordered according to their dependency relationships, enabling build systems and bundlers to process files in the correct sequence.
 - **Leaf & Mutual Dependencies:** Find files with no local imports and mutual (two-way) dependencies.
 - **NPM & Node Built-in Detection:** List external and built-in module usage.
 
-## Usage
+## Documentation
 
-### Install
+A [technical overview and up-to-date documentation][deep-wiki-project] is provided by [DeepWiki][deep-wiki] and is available for asking about the project.
+
+- [Getting Started][getting-started]
+- [API Reference][api-reference]
+- [Architecture][architecture]
+- [Development][development]
+
+### Installation
+
+Install dependensia as a development dependency in your project:
 
 ```bash
-npm i dependensia
+npm i -D dependensia
 ```
 
-### Use
+### Basic Usage
 
-Import and use in your project:
-
-esm:
+#### ES Modules
 
 ```ts
 import dependensia from "dependensia";
 
-const entry = "src/index.js";
-const graph = await dependensia(entry);
-const sorted = graph.sort(); //a list of nodes in topological order
+const entry = "src/index.ts";
+const analysis = await dependensia(entry);
+
+// Get topologically sorted files
+const sorted = analysis.sort();
+
+// Check for circular dependencies
+const circular = analysis.circular();
+
+// Find mutual dependencies
+const mutual = analysis.mutual();
 ```
 
-commonjs:
+#### CommonJS
 
 ```js
 const dependensia = require("dependensia");
 
 const entry = "src/index.js";
-dependensia(entry).then((res) => {
-  console.log(res.mutual()); //mutual (two-way) dependencies
+dependensia(entry).then((analysis) => {
+  console.log("Circular dependencies:", analysis.circular());
+  console.log("NPM dependencies:", analysis.npm());
 });
 ```
 
@@ -106,7 +124,7 @@ Contributions are welcome for bug fixes, features, documentation, and code quali
    make build
    ```
 
-See [CONTRIBUTING.md][file-contribute].
+See [CONTRIBUTING.md][file-contribute].For more detail [Contributing Guidelines][contributing-guidelines]
 
 ## License
 
@@ -117,3 +135,11 @@ See [CONTRIBUTING.md][file-contribute].
 [file-license]: LICENSE
 [file-contribute]: CONTRIBUTING.md
 [ptm]: https://github.com/phothinmg
+[deep-wiki]: https://deepwiki.com/
+[deep-wiki-project]: https://deepwiki.com/phothinmg/dependensia
+[deep-wiki-svg]: https://deepwiki.com/badge.svg
+[getting-started]: https://deepwiki.com/phothinmg/dependensia/2-getting-started
+[api-reference]: https://deepwiki.com/phothinmg/dependensia/3-api-reference
+[architecture]: https://deepwiki.com/phothinmg/dependensia/4-architecture
+[development]: https://deepwiki.com/phothinmg/dependensia/5-development
+[contributing-guidelines]: https://deepwiki.com/phothinmg/dependensia/5.1-contributing-guidelines

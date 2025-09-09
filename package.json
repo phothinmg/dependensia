@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "biome check src --write",
     "format": "biome format --write",
-    "build": "tsx build.ts"
+    "build": "tsx build.ts",
+    "test": "tsx --test --test-update-snapshots"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -36,14 +37,12 @@
   ],
   "author": "Pho Thin Mg <phothinmg@disroot.org>",
   "license": "Apache-2.0",
-  "dependencies": {
-    "@types/node": "^24.3.0",
-    "typescript": "^5.9.2"
-  },
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
-    "tsx": "^4.20.5"
+    "@types/node": "^24.3.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   },
   "publishConfig": {
     "provenance": true,

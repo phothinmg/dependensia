@@ -196,15 +196,16 @@ const programEsm = ts.createProgram(files, esmCompilerOptions, hostEsm);
 programEsm.emit();
 Object.entries(esmCreatedFiles).map(async ([outName, content]) => {
   const dir = path.dirname(outName);
-  if (!existsSync(dir)) {
-    await fs.mkdir(dir, { recursive: true });
+  if (!ts.sys.directoryExists(dir)) {
+    //await fs.mkdir(dir, { recursive: true });
+    ts.sys.createDirectory(dir);
   }
   content = `${licenseText}\n${content}`;
   await wait(500);
-  await fs.writeFile(outName, content);
+  ts.sys.writeFile(outName, content);
 });
 await wait(1000);
 console.timeEnd("Compiling done in");
 // ----------------------------------------------- End Compiling --------------------------
-// removing temp dir
+//removing temp dir
 await forceRemoveDir(tempDir);

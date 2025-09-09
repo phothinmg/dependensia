@@ -1,6 +1,6 @@
 # dependensia
 
-[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
+[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project] [![codecov][codecov-svg]][codecov-project]
 
 ## Overview
 
@@ -25,7 +25,7 @@ A [technical overview and up-to-date documentation][deep-wiki-project] is provid
 
 ### Installation
 
-Install dependensia as a development dependency in your project:
+Install `dependensia` as a development dependency in your project:
 
 ```bash
 npm i -D dependensia
@@ -143,3 +143,5 @@ See [CONTRIBUTING.md][file-contribute].For more detail [Contributing Guidelines]
 [architecture]: https://deepwiki.com/phothinmg/dependensia/4-architecture
 [development]: https://deepwiki.com/phothinmg/dependensia/5-development
 [contributing-guidelines]: https://deepwiki.com/phothinmg/dependensia/5.1-contributing-guidelines
+[codecov-svg]: https://codecov.io/gh/phothinmg/dependensia/graph/badge.svg?token=15NLXHS3J9
+[codecov-project]: https://codecov.io/gh/phothinmg/dependensia

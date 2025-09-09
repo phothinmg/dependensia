@@ -6,8 +6,7 @@
     "lint": "biome check src --write",
     "format": "biome format --write",
     "build": "tsx build.ts",
-    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info  --test-update-snapshots",
-    "coverage": "mcr --import tsx tsx --test --test-update-snapshots"
+    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info  --test-update-snapshots"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -42,7 +41,6 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@types/node": "^24.3.1",
-    "monocart-coverage-reports": "^2.12.6",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   },

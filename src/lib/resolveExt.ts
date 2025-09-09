@@ -1,6 +1,5 @@
-import fs from "node:fs";
 import path from "node:path";
-
+import ts from "typescript";
 /**
  * Resolve a file path with an extension. If the extension is not present, it is
  * automatically resolved from the files in the same directory. If the resolved
@@ -16,7 +15,14 @@ function resolveExtension(filePath: string) {
   const dirName = path.dirname(trimmedPath);
   const baseName = path.basename(trimmedPath);
   const [fileName, extName = ""] = baseName.split(".");
-  const files = fs.readdirSync(dirName);
+  const files = ts.sys.readDirectory(dirName, [
+    "js",
+    "cjs",
+    "mjs",
+    "ts",
+    "mts",
+    "cts",
+  ]);
 
   // Find a file with the same name and allowed extension
   const match = files
@@ -29,7 +35,8 @@ function resolveExtension(filePath: string) {
   if (!match) {
     console.log(`Error in ${filePath}`);
     //TODO -> Optionally log a warning here
-    process.exit(1);
+    throw Error();
+    //process.exit(1);
   }
 
   let result: string;
@@ -38,6 +45,8 @@ function resolveExtension(filePath: string) {
   } else if (extName === match.ext) {
     result = trimmedPath;
   } else {
+    // detect-non-literal-regexp.detect-non-literal-regexp
+    // https://github.com/phothinmg/dependensia/actions/runs/17573584216/job/49914087146
     result = trimmedPath.replace(new RegExp(`\\.${extName}$`), `.${match.ext}`);
   }
 

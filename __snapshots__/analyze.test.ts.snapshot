@@ -1,0 +1,452 @@
+exports[`Analyze dependencies > should detect circular dependency 1`] = `
+{
+  "depObj": {
+    "A": [
+      "B"
+    ],
+    "B": [
+      "C"
+    ],
+    "C": [
+      "A"
+    ]
+  },
+  "expected": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "entryToLeafChains": []
+  },
+  "result": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "A": [
+        "A"
+      ]
+    },
+    "entryToLeafChains": []
+  }
+}
+`;
+
+exports[`Analyze dependencies > should detect multiple circular dependencies 1`] = `
+{
+  "depObj": {
+    "A": [
+      "B"
+    ],
+    "B": [
+      "C"
+    ],
+    "C": [
+      "A"
+    ],
+    "D": [
+      "E"
+    ],
+    "E": [
+      "F"
+    ],
+    "F": [
+      "D"
+    ]
+  },
+  "expected": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      },
+      {
+        "chain": [
+          "D",
+          "E",
+          "F",
+          "D"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "D": [
+        "D"
+      ],
+      "E": [
+        "D",
+        "E"
+      ],
+      "F": [
+        "D",
+        "E",
+        "F"
+      ]
+    },
+    "entryToLeafChains": []
+  },
+  "result": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      },
+      {
+        "chain": [
+          "D",
+          "E",
+          "F",
+          "D"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "A": [
+        "A"
+      ],
+      "F": [
+        "D",
+        "E",
+        "F"
+      ],
+      "E": [
+        "D",
+        "E"
+      ],
+      "D": [
+        "D"
+      ]
+    },
+    "entryToLeafChains": []
+  }
+}
+`;
+
+exports[`Analyze dependencies > should detect simple dependency chain 1`] = `
+{
+  "depObj": {
+    "A": [
+      "B"
+    ],
+    "B": [
+      "C"
+    ],
+    "C": []
+  },
+  "expected": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A",
+        "B",
+        "C"
+      ]
+    ]
+  },
+  "result": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "A": [
+        "A"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A",
+        "B",
+        "C"
+      ]
+    ]
+  }
+}
+`;
+
+exports[`Analyze dependencies > should handle leaf node with no dependencies 1`] = `
+{
+  "depObj": {
+    "A": []
+  },
+  "expected": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A"
+      ]
+    ]
+  },
+  "result": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A"
+      ]
+    ]
+  }
+}
+`;
+
+exports[`Analyze dependencies > should handle node with multiple dependencies 1`] = `
+{
+  "depObj": {
+    "A": [
+      "B",
+      "C"
+    ],
+    "B": [],
+    "C": []
+  },
+  "expected": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "C"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ]
+    ]
+  },
+  "result": {
+    "circularDependencies": [],
+    "dependencyChains": {
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "C"
+      ],
+      "A": [
+        "A"
+      ]
+    },
+    "entryToLeafChains": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ]
+    ]
+  }
+}
+`;
+
+exports[`Analyze dependencies > should remove duplicate circular dependencies 1`] = `
+{
+  "depObj": {
+    "A": [
+      "B"
+    ],
+    "B": [
+      "C"
+    ],
+    "C": [
+      "A"
+    ],
+    "D": [
+      "A"
+    ]
+  },
+  "expected": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "A": [
+        "A"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "D": [
+        "D"
+      ]
+    },
+    "entryToLeafChains": []
+  },
+  "result": {
+    "circularDependencies": [
+      {
+        "chain": [
+          "A",
+          "B",
+          "C",
+          "A"
+        ],
+        "type": "circular"
+      }
+    ],
+    "dependencyChains": {
+      "C": [
+        "A",
+        "B",
+        "C"
+      ],
+      "B": [
+        "A",
+        "B"
+      ],
+      "A": [
+        "A"
+      ],
+      "D": [
+        "D"
+      ]
+    },
+    "entryToLeafChains": []
+  }
+}
+`;
+
+exports[`Analyze dependencies > should return empty result for empty dependency graph 1`] = `
+{
+  "depObj": {},
+  "expected": {
+    "circularDependencies": [],
+    "dependencyChains": {},
+    "entryToLeafChains": []
+  },
+  "result": {
+    "circularDependencies": [],
+    "dependencyChains": {},
+    "entryToLeafChains": []
+  }
+}
+`;

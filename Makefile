@@ -1,6 +1,6 @@
 SHELL := bash
 
-.PHONY: install lint format test build
+.PHONY: install lint format test coverage build
 
 install:
 	@npm $@
@@ -12,6 +12,9 @@ format:
 	@npm run $@
 
 test:
+	@npm run $@
+
+coverage:
 	@npm run $@
 
 build:

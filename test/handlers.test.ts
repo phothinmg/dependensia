@@ -7,7 +7,7 @@ import {
   processFunction,
   createES5SourceFile,
   createLatestSourceFile,
-} from "./test-util.js";
+} from "../test-utils/util.js";
 
 //==
 snapshot.setResolveSnapshotPath((testPath) => {

@@ -6,7 +6,7 @@
     "lint": "biome check src --write",
     "format": "biome format --write",
     "build": "tsx build.ts",
-    "test": "tsx --test --test-update-snapshots",
+    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info  --test-update-snapshots",
     "coverage": "mcr --import tsx tsx --test --test-update-snapshots"
   },
   "main": "dist/index.cjs",

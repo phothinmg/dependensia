@@ -33,7 +33,7 @@ export function lcovToCodecovJson(lcovPath: string, outputPath: string) {
     }
 
     if (file) {
-      coverage[file] = { lines: lineHits };
+      coverage[file] = { ...lineHits };
     }
   }
 

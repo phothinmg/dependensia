@@ -1,28 +1,31 @@
 import path from "node:path";
 import { describe, it, snapshot } from "node:test";
-import { resolveExtension, replaceWithMatchExt } from "../src/lib/resolveExt";
+import {
+  resolveExtension,
+  replaceWithMatchExt,
+} from "../../src/lib/resolveExt";
 
 snapshot.setResolveSnapshotPath((testPath) => {
   const root = process.cwd();
   const _baseName = path.basename(testPath as string);
-  return path.resolve(root, "__snapshots__", `${_baseName}.snapshot`);
+  return path.resolve(root, "opt", "__snapshots__", `${_baseName}.snapshot`);
 });
 
 //=
 describe("Resolve extensions", () => {
   it("should resolve file path without extension", (t) => {
-    const filePath = "./test-utils/esm/foo";
+    const filePath = "./opt/esm/foo";
     const resolve = resolveExtension(filePath);
     const result = resolve.result;
-    const expected = "./test-utils/esm/foo.js";
+    const expected = "./opt/esm/foo.js";
     t.assert.deepEqual(result, expected);
     t.assert.snapshot({ filePath, expected, result });
   });
   it("should replace file path extension if it is different from resolved extension", (t) => {
-    const filePath = "./test-utils/ts/foo.js";
+    const filePath = "./opt/ts/foo.js";
     const resolve = resolveExtension(filePath);
     const result = resolve.result;
-    const expected = "./test-utils/ts/foo.ts";
+    const expected = "./opt/ts/foo.ts";
     t.assert.deepEqual(result, expected);
     t.assert.snapshot({ filePath, expected, result });
   });
@@ -32,23 +35,23 @@ describe("Resolve extensions", () => {
     t.assert.snapshot({ filePath });
   });
   it("should replace extension with without extension", (t) => {
-    const filePath = "./test-utils/esm/foo";
+    const filePath = "./opt/esm/foo";
     const result = replaceWithMatchExt(filePath, "js");
-    const expected = "./test-utils/esm/foo.js";
+    const expected = "./opt/esm/foo.js";
     t.assert.deepEqual(result, expected);
     t.assert.snapshot({ filePath, expected, result });
   });
   it("should replace extension with different extension", (t) => {
-    const filePath = "./test-utils/esm/foo.js";
+    const filePath = "./opt/esm/foo.js";
     const result = replaceWithMatchExt(filePath, "ts");
-    const expected = "./test-utils/esm/foo.ts";
+    const expected = "./opt/esm/foo.ts";
     t.assert.deepEqual(result, expected);
     t.assert.snapshot({ filePath, expected, result });
   });
   it("should replace extension with same extension", (t) => {
-    const filePath = "./test-utils/esm/foo.js";
+    const filePath = "./opt/esm/foo.js";
     const result = replaceWithMatchExt(filePath, "js");
-    const expected = "./test-utils/esm/foo.js";
+    const expected = "./opt/esm/foo.js";
     t.assert.deepEqual(result, expected);
     t.assert.snapshot({ filePath, expected, result });
   });

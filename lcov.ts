@@ -33,7 +33,7 @@ export function lcovToCodecovJson(lcovPath: string, outputPath: string) {
     }
 
     if (file) {
-      coverage[file] = { ...lineHits };
+      coverage[file] = { lines: lineHits };
     }
   }
 
@@ -41,4 +41,4 @@ export function lcovToCodecovJson(lcovPath: string, outputPath: string) {
 
   fs.writeFileSync(outputPath, JSON.stringify(codecovJson, null, 2));
 }
-lcovToCodecovJson("test/lcov.info", "test-coverage/codecov.json");
+lcovToCodecovJson("opt/lcov.info", "opt/coverage/codecov.json");

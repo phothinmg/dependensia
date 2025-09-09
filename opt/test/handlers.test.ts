@@ -1,19 +1,19 @@
 import path from "node:path";
 import ts from "typescript";
 import { describe, it, snapshot } from "node:test";
-import handlers from "../src/lib/handlers/index.js";
+import handlers from "../../src/lib/handlers/index.js";
 
 import {
   processFunction,
   createES5SourceFile,
   createLatestSourceFile,
-} from "../test-utils/util.js";
+} from "../utils/util.js";
 
 //==
 snapshot.setResolveSnapshotPath((testPath) => {
   const root = process.cwd();
   const _baseName = path.basename(testPath as string);
-  return path.resolve(root, "__snapshots__", `${_baseName}.snapshot`);
+  return path.resolve(root, "opt", "__snapshots__", `${_baseName}.snapshot`);
 });
 
 describe("Handle Require Calls", () => {

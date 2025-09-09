@@ -1,20 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "node:fs";
 
-/**
- * Converts lcov.info to codecov.json format.
- * @param lcovPath Path to lcov.info file
- * @param outputPath Path to output codecov.json file
- */
-export function lcovToCodecovJson(lcovPath: string, outputPath: string) {
+function lcovToCodecov(lcovPath: string, outputPath: string) {
   const lcov = fs.readFileSync(lcovPath, "utf-8");
   const records = lcov
-    .split("end_of_record")
+    .split("end_of_record") //split files
     .map((r) => r.trim())
     .filter(Boolean);
 
   const coverage = {};
-
+  const regexp = /^.*\.test\.ts$/;
   for (const record of records) {
     const lines = record
       .split("\n")
@@ -25,20 +19,23 @@ export function lcovToCodecovJson(lcovPath: string, outputPath: string) {
 
     for (const line of lines) {
       if (line.startsWith("SF:")) {
+        // file name
         file = line.slice(3);
       } else if (line.startsWith("DA:")) {
+        // DA:10,1
         const [ln, hits] = line.slice(3).split(",").map(Number);
         lineHits[ln] = hits;
       }
     }
-
-    if (file) {
+    // filter test files
+    if (file && !regexp.test(file)) {
       coverage[file] = { ...lineHits };
     }
   }
 
   const codecovJson = { coverage };
 
-  fs.writeFileSync(outputPath, JSON.stringify(codecovJson, null, 2));
+  fs.writeFileSync(outputPath, JSON.stringify(codecovJson));
 }
-lcovToCodecovJson("opt/lcov.info", "opt/coverage/codecov.json");
+
+export default lcovToCodecov;

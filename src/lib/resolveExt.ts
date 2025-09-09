@@ -45,7 +45,8 @@ function resolveExtension(filePath: string) {
   } else if (extName === match.ext) {
     result = trimmedPath;
   } else {
-    // detect-non-literal-regexp.detect-non-literal-regexp
+    // to fix
+    // detect-non-literal-regexp
     // https://github.com/phothinmg/dependensia/actions/runs/17573584216/job/49914087146
     result = trimmedPath.replace(new RegExp(`\\.${extName}$`), `.${match.ext}`);
   }

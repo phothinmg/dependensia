@@ -96,7 +96,7 @@ function collectDependencies(
       else {
         warn.push(moduleText);
       }
-    } //#endregion
+    } //processModule
 
     ts.forEachChild(sourceFile, (node) => handlers(node, processModule));
 

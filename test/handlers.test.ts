@@ -3,11 +3,6 @@ import ts from "typescript";
 import { describe, it, snapshot } from "node:test";
 import handlers from "../../src/lib/handlers/index.js";
 
-import {
-  processFunction,
-  createES5SourceFile,
-  createLatestSourceFile,
-} from "../utils/util.js";
 
 //==
 snapshot.setResolveSnapshotPath((testPath) => {
@@ -15,6 +10,20 @@ snapshot.setResolveSnapshotPath((testPath) => {
   const _baseName = path.basename(testPath as string);
   return path.resolve(root, "opt", "__snapshots__", `${_baseName}.snapshot`);
 });
+
+
+const createES5SourceFile = (str: string) => {
+  return ts.createSourceFile("common.ts", str, ts.ScriptTarget.ES5, true);
+};
+const createLatestSourceFile = (str: string) => {
+  return ts.createSourceFile("esm.ts", str, ts.ScriptTarget.Latest, true);
+};
+// fake call back
+const processFunction = (arr: string[]) => {
+  return function (str: string) {
+    arr.push(str);
+  };
+};
 
 describe("Handle Require Calls", () => {
   it("should detect require call with string literal argument", (t) => {

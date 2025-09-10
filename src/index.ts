@@ -154,7 +154,7 @@ async function dependensia(entry: string): Promise<Dependensia> {
 		circular: (): CircularDependency[] => analyzedData.circularDependencies,
 		dependents,
 		chain: (): Record<string, string[]> => _chain,
-		entryToLeaf:(): string[][]=> analyzedData.entryToLeafChains,
+		entryToLeaf: (): string[][] => analyzedData.entryToLeafChains,
 		textGraph: (): string => _text,
 	};
 }

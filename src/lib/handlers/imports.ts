@@ -17,7 +17,7 @@ function handleImports(node: ts.Node, processFn: (input: string) => void) {
 		processFn(moduleText);
 		return;
 	} //--
-	// Recursively visit all children 
+	// Recursively visit all children
 	ts.forEachChild(node, (n) => handleImports(n, processFn));
 }
 
@@ -40,7 +40,7 @@ function handleImportEqual(node: ts.Node, processFn: (input: string) => void) {
 		processFn(moduleText);
 		return;
 	} //--
-	// Recursively visit all children 
+	// Recursively visit all children
 	ts.forEachChild(node, (n) => handleImportEqual(n, processFn));
 }
 
@@ -65,7 +65,7 @@ function handleAwaitImport(node: ts.Node, processFn: (input: string) => void) {
 		}
 		return;
 	} //--
-	// Recursively visit all children 
+	// Recursively visit all children
 	ts.forEachChild(node, (n) => handleAwaitImport(n, processFn));
 }
 

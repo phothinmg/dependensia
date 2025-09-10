@@ -1,11 +1,11 @@
 import path from "node:path";
 import { describe, it, snapshot } from "node:test";
-import analyzeDependencies from "../../src/lib/analyze";
+import analyzeDependencies from "../src/lib/analyze";
 
 snapshot.setResolveSnapshotPath((testPath) => {
   const root = process.cwd();
   const _baseName = path.basename(testPath as string);
-  return path.resolve(root, "opt", "__snapshots__", `${_baseName}.snapshot`);
+  return path.resolve(root, "__snapshots__", `${_baseName}.snapshot`);
 });
 
 describe("Analyze dependencies", () => {

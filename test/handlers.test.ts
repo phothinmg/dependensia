@@ -1,16 +1,14 @@
 import path from "node:path";
 import ts from "typescript";
 import { describe, it, snapshot } from "node:test";
-import handlers from "../../src/lib/handlers/index.js";
-
+import handlers from "../src/lib/handlers/index.js";
 
 //==
 snapshot.setResolveSnapshotPath((testPath) => {
   const root = process.cwd();
   const _baseName = path.basename(testPath as string);
-  return path.resolve(root, "opt", "__snapshots__", `${_baseName}.snapshot`);
+  return path.resolve(root, "__snapshots__", `${_baseName}.snapshot`);
 });
-
 
 const createES5SourceFile = (str: string) => {
   return ts.createSourceFile("common.ts", str, ts.ScriptTarget.ES5, true);

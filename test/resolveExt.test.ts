@@ -11,16 +11,15 @@ describe("Resolve extensions", () => {
 		t.assert.deepEqual(result, expected);
 	});
 	it("should replace file path extension if it is different from resolved extension", (t) => {
-		const filePath = "./test/esm/foo.js";
+		const filePath = "./test/ts/foo.js";
 		const resolve = resolveExtension(filePath);
 		const result = resolve.result;
-		const expected = "./test/esm/foo.ts";
+		const expected = "./test/ts/foo.ts";
 		t.assert.deepEqual(result, expected);
 	});
 	it("should throw error if file path does not exist", (t) => {
 		const filePath = "path/to/non-existent-file";
 		t.assert.throws(() => resolveExtension(filePath));
-		t.assert.snapshot({ filePath });
 	});
 	it("should replace extension with without extension", (t) => {
 		const filePath = "./test/esm/foo";

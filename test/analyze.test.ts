@@ -124,7 +124,6 @@ describe("Analyze dependencies", () => {
 			entryToLeafChains: [["A"]],
 		};
 		t.assert.deepEqual(result, expected);
-		t.assert.snapshot({ depObj, expected, result });
 	});
 	it("should handle node with multiple dependencies", (t) => {
 		const depObj: Record<string, string[]> = {

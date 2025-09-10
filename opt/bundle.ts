@@ -1,13 +1,14 @@
 import ts from "typescript";
-import { wait, readFile, resolvePath } from "./helpers";
 import dependensia from "../src";
+import { readFile, resolvePath, wait } from "./helpers";
 import mergeImports from "./mergeImports";
+
 type Dep = {
 	filePath: string;
 	fileContent: string;
 };
 async function bundle(entry: string) {
-	console.time("Bundling done in");
+	console.time("Bundled");
 	// Handle : dependencies
 	const graph = await dependensia(entry);
 	const sorted = graph.sort();
@@ -98,7 +99,7 @@ async function bundle(entry: string) {
 	// merge duplicate imports of different file from dependencies tree
 	// remove type imports that have regular imports
 	removedStatements = mergeImports(removedStatements);
-	console.timeEnd("Bundling done in");
+	console.timeEnd("Bundled");
 	return `${removedStatements.join("\n")}\n${processedContents.join(
 		"\n",
 	)}\n`.trim();

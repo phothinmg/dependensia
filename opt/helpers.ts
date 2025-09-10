@@ -1,5 +1,5 @@
-import ts from "typescript";
 import path from "node:path";
+import ts from "typescript";
 
 const resolvePath = ts.sys.resolvePath;
 const fileExists = ts.sys.fileExists;

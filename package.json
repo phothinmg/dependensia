@@ -3,7 +3,7 @@
 	"version": "0.0.3",
 	"description": "Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs",
 	"scripts": {
-		"lint": "biome check src --write",
+		"lint": "biome check src --write && biome check opt --write",
 		"format": "biome format --write",
 		"build": "tsx build.ts",
 		"test": "./scripts/test.sh"

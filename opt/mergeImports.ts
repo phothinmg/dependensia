@@ -1,4 +1,3 @@
-
 function mergeImports(imports: string[]): string[] {
 	const importMap = new Map<string, Set<string>>();
 	const typeImportMap = new Map<string, Set<string>>();

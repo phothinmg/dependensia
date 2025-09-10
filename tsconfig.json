@@ -1,13 +1,13 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "outDir": "out",
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "strict": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
+	"compilerOptions": {
+		"declaration": true,
+		"outDir": "out",
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"strict": true,
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true
+	},
+	"include": ["src/**/*"]
 }

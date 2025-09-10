@@ -2,69 +2,66 @@
 
 Thank you for your interest in contributing to **dependensia**! This guide will help you get started and understand the workflow for contributing code, documentation, or ideas.
 
-## Getting Started
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/phothinmg/dependensia.git
-   cd dependensia
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   make install
-   ```
-
-3. **Check code quality**
-
-   ```bash
-   make lint
-   ```
-
 ## Project Structure
 
-- `src/` — Main source code
-  - `lib/` — Core library modules
-  - `handlers/` — Import/require handlers
-  - `index.ts` — Entry point
-- `notes/` — notes of the project
-- `package.json`, `tsconfig.json`, `biome.json` — Project configuration
+```text
+root/
+├── coverage(codecov report)
+├── opt(bundle,lcov)
+├── resources(notes of the project)
+├── src (main source code)/
+│   ├── index.ts(entry point)
+│   └── lib(core library modules)/
+│       └── handlers(import/require handlers)
+├── test(unit test)
+├── biome.json(code quality)
+├── build.ts(build script)
+├── codecov.ts(generate coverage report)
+├── Makefile
+├── package.json
+├── readme.md
+└── tsconfig.json
+```
 
-## How to Contribute
+## Repository Setup Process
 
-### 1. Issues & Feature Requests
+The initial setup involves cloning the repository and installing dependencies using the project's standardized make commands.
 
-- Use [GitHub Issues](https://github.com/phothinmg/dependensia/issues) to report bugs or request features.
+### Initial Setup Commands
 
-### 2. Pull Requests
+| Step     | Command                                                  | Purpose                  |
+| -------- | -------------------------------------------------------- | ------------------------ |
+| Clone    | `git clone https://github.com/phothinmg/dependensia.git` | Get source code          |
+| Navigate | `cd dependentiae`                                        | Enter project directory  |
+| Install  | `make install`                                           | Install all dependencies |
+| Verify   | `make lint`                                              | Check code quality       |
 
-- Fork the repository and create your branch from `main`.
-- Follow the code style (see `biome.json`).
-- Add tests if applicable.
-- Document your changes in the pull request description.
+> NOTE: `make lint` for check to `src/` and `opt/`, `make format` for format all without checking.
 
-### 3. Code Quality
+## Contribution Workflow
 
-- Run `make lint` before submitting.
-- Ensure your code passes all checks and tests.
+The project follows a standard GitHub fork-and-pull-request workflow with specific quality requirements and review processes.
 
-### 4. Documentation
+### Branching Guidelines
 
-- Update `readme.md` or add docs in `documents/` as needed.
+- Create feature branches from `main` branch
+- Use descriptive branch names (e.g., `fix/circular-detection`, `feature/new-handler`)
+- Keep branches focused on single features or bug fixes
+- Regularly sync with upstream main to avoid conflicts
 
-## Circular Dependency Detection
+### Code Quality Standards
 
-This project analyzes TypeScript/JavaScript dependencies and can detect circular dependencies. See `src/lib/analyze.ts` and related modules for implementation details.
+The project enforces strict code quality standards through automated tooling and manual review processes.
 
-## License
+#### Quality Tools and Commands
 
-See [LICENSE](LICENSE).
+| Tool            | Command          | Configuration File              | Purpose                           |
+| --------------- | ---------------- | ------------------------------- | --------------------------------- |
+| Biome           | `make lint`      | `biome.json`                    | Code formatting and linting       |
+| TypeScript      | `tsc`            | `tsconfig.json`                 | Type checking and compilation     |
+| CodeQL Advanced | github workflows | `.github/workflows/codeql.yml`  | CodeQL Analysis on push or on P/R |
+| Semgrep         | github workflows | `.github/workflows/semgrep.yml` | Code Scanning With Semgrep        |
 
-## Contact
+### Code Style Requirements
 
-For questions, open an issue or contact the maintainer via GitHub.
-
----
-Happy coding!
+- Follow TypeScript strict mode guidelines

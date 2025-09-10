@@ -5,8 +5,7 @@
 	"scripts": {
 		"lint": "biome check src --write && biome check opt --write",
 		"format": "biome format --write",
-		"build": "tsx build.ts",
-		"test": "./scripts/test.sh"
+		"build": "tsx build.ts"
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",

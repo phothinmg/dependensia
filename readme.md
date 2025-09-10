@@ -1,12 +1,10 @@
 # dependensia
 
-[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project] [![codecov][codecov-svg]][codecov-project]
-
-## Overview
+[![codecov][codecov-svg]][codecov-project]
 
 A static analysis tool designed to examine TypeScript and JavaScript projects and produce dependency graphs,using TypeScript APIs.
 
-### Key Features
+## Key Features
 
 - **Dependency Graph Generation:** Analyze TypeScript/JavaScript projects to map file dependencies.
 - **Circular Dependency Detection:** Implements depth-first search (DFS) algorithms to identify cycles in the dependency graph, helping developers locate problematic import patterns.
@@ -14,14 +12,7 @@ A static analysis tool designed to examine TypeScript and JavaScript projects an
 - **Leaf & Mutual Dependencies:** Find files with no local imports and mutual (two-way) dependencies.
 - **NPM & Node Built-in Detection:** List external and built-in module usage.
 
-## Documentation
-
-A [technical overview and up-to-date documentation][deep-wiki-project] is provided by [DeepWiki][deep-wiki] and is available for asking about the project.
-
-- [Getting Started][getting-started]
-- [API Reference][api-reference]
-- [Architecture][architecture]
-- [Development][development]
+## Use
 
 ### Installation
 
@@ -97,34 +88,18 @@ Returns a Promise resolved object.
 
 Contributions are welcome for bug fixes, features, documentation, and code quality improvements.
 
-### Getting Started
+See [CONTRIBUTING.md][file-contribute]
 
-1. **Clone the repository**
+## DeepWiki
 
-   ```bash
-   git clone https://github.com/phothinmg/dependensia.git
-   cd dependensia
-   ```
+[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
 
-2. **Install dependencies:**
+A [technical overview and up-to-date documentation][deep-wiki-project] is provided by [DeepWiki][deep-wiki] and is available for asking about the project.
 
-   ```bash
-   make install
-   ```
-
-3. **Run code quality checks:**
-
-   ```bash
-   make lint
-   ```
-
-4. **Build the project:**
-
-   ```bash
-   make build
-   ```
-
-See [CONTRIBUTING.md][file-contribute].For more detail [Contributing Guidelines][contributing-guidelines]
+- [Getting Started][getting-started]
+- [API Reference][api-reference]
+- [Architecture][architecture]
+- [Development][development]
 
 ## License
 

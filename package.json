@@ -5,9 +5,9 @@
   "scripts": {
     "lint": "biome check src --write && biome check opt --write",
     "format": "biome format --write",
-    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info",
-    "coverage": "tsx codecov.ts",
-    "build": "tsx build.ts"
+    "test": "tsx --test test/*.test.ts",
+    "coverage": "tsx opt/lcov/index.ts",
+    "build": "tsx opt/build/index.ts"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",

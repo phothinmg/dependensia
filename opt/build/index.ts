@@ -1,7 +1,7 @@
 import path from "node:path";
-import bundle from "./opt/bundle";
-import { commonjsCompiler, esmCompiler, type OutPutHook } from "./opt/compile";
-import { wait } from "./opt/helpers";
+import { wait } from "../helpers";
+import bundle from "./bundle";
+import { commonjsCompiler, esmCompiler, type OutPutHook } from "./compile";
 
 const entry = "src/index.ts";
 const outDir = "dist";
@@ -25,7 +25,7 @@ License at http://www.apache.org/licenses/LICENSE-2.0
  * @returns {OutPutHook} A function that can be used as a hook to add the given string as a banner.
  */
 const bannerText = (str: string): OutPutHook => {
-	return function (code, file) {
+	return (code, file) => {
 		if (path.extname(file as string) === ".js") {
 			code = `${str}\n${code}`;
 		}

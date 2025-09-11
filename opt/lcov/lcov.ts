@@ -11,6 +11,7 @@ function lcovToCodecov(lcov: string) {
 
 	const coverage = {};
 	const regexp = /^.*\.test\.ts$/;
+	const re2 = /^test\/(?:esm|ts)\/.*(?:\.js|\.ts)$/;
 	for (const record of records) {
 		const lines = record
 			.split("\n")
@@ -30,7 +31,7 @@ function lcovToCodecov(lcov: string) {
 			}
 		}
 		// filter test files
-		if (file && !regexp.test(file)) {
+		if (file && !regexp.test(file) && !re2.test(file)) {
 			coverage[file] = { ...lineHits };
 		}
 	}

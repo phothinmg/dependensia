@@ -1,8 +1,24 @@
-#!/bin/bash
+#!/bin/sh
+# Check for trailing whitespace
+for file in $(git diff --cached --name-only | grep -E '\.(js|ts)$'); do
+  if grep -q '[[:space:]]$' "$file"; then
+    echo "Trailing whitespace found in $file"
+    exit 1
+  fi
+done
+ 
+# Check for uncommitted changes in package.json
+if [ -f package.json ]; then
+  if [ "$(git diff --cached package.json)" != "" ]; then
+    echo "Uncommitted changes found in package.json"
+    exit 1
+  fi
+fi
 
-npm run lint
-
-SUCCESS=$?
-
-[ $SUCCESS -ne 0 ] && exit 1
+for file in $(git diff --cached --name-only | grep '\.(js|ts)$'); do
+  npx biome check "$file" --write
+  if [ $? -ne 0 ]; then
+    echo "ESLint errors found in $file"
+    exit 1
+  fi
 exit 0

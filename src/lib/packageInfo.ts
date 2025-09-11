@@ -10,7 +10,7 @@ interface PackageInfo {
 	all: string[];
 }
 
-function getPackageInfo(root: string) {
+function getPackageInfo(root: string): PackageInfo {
 	const packageJsonPath = path.resolve(root, "package.json");
 	const nodeModulesPath = path.resolve(root, "node_modules");
 	const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));

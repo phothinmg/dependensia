@@ -10,7 +10,10 @@ import ts from "typescript";
  * @param filePath The file path to resolve
  * @returns An object containing the resolved file path and the resolved extension
  */
-function resolveExtension(filePath: string) {
+function resolveExtension(filePath: string): {
+	result: string;
+	ext: string;
+} {
 	const allowedExtensions = new Set(["js", "cjs", "mjs", "ts", "mts", "cts"]);
 	const trimmedPath = filePath.trim();
 	const dirName = path.dirname(trimmedPath);

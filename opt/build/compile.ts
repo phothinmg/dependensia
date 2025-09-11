@@ -1,6 +1,6 @@
 import path from "node:path";
 import ts from "typescript";
-import { wait, writeOutFile } from "./helpers";
+import { wait, writeOutFile } from "../helpers";
 
 export type OutPutHook = (code: string, file?: string) => string;
 // biome-ignore lint/suspicious/noExplicitAny: call hooks

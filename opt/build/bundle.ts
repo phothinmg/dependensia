@@ -1,6 +1,6 @@
 import ts from "typescript";
-import dependensia from "../src";
-import { readFile, resolvePath, wait } from "./helpers";
+import dependensia from "../../src";
+import { readFile, resolvePath, wait } from "../helpers";
 import mergeImports from "./mergeImports";
 
 type Dep = {

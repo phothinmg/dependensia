@@ -12,10 +12,10 @@ The initial setup involves cloning the repository and installing dependencies us
 | -------- | -------------------------------------------------------- | ------------------------ |
 | Clone    | `git clone https://github.com/phothinmg/dependensia.git` | Get source code          |
 | Navigate | `cd dependentiae`                                        | Enter project directory  |
-| Install  | `make install`                                           | Install all dependencies |
-| Verify   | `make lint`                                              | Check code quality       |
+| Install  | `npm install`                                            | Install all dependencies |
+| Verify   | `npm run lint`                                           | Check code quality       |
 
-> NOTE: `make lint` for check to `src/` and `opt/`, `make format` for format all without checking.
+> NOTE: `npm run lint` for check to `src/` and `opt/`, `npm run format` for format all without checking.
 
 ## Contribution Workflow
 
@@ -36,7 +36,7 @@ The project enforces strict code quality standards through automated tooling and
 
 | Tool            | Command          | Configuration File              | Purpose                           |
 | --------------- | ---------------- | ------------------------------- | --------------------------------- |
-| Biome           | `make lint`      | `biome.json`                    | Code formatting and linting       |
+| Biome           | `npm run lint`   | `biome.json`                    | Code formatting and linting       |
 | TypeScript      | `tsc`            | `tsconfig.json`                 | Type checking and compilation     |
 | CodeQL Advanced | github workflows | `.github/workflows/codeql.yml`  | CodeQL Analysis on push or on P/R |
 | Semgrep         | github workflows | `.github/workflows/semgrep.yml` | Code Scanning With Semgrep        |
@@ -54,16 +54,16 @@ Please don't use exports with modifiers because of our own bundle process can't 
 ```ts
 // don't -> exports with modifiers
 export const bar = {};
-export default function foo(){}
+export default function foo() {}
 // don't -> anonymous exports(without name)
-export default function(){}
-export default{foo:"bar"}
+export default function () {}
+export default { foo: "bar" };
 // do -> exports with identifier
 const bar = {};
-function foo(){};
-const biz = {foo:"bar"};
-export {bar,biz};
-export default foo
+function foo() {}
+const biz = { foo: "bar" };
+export { bar, biz };
+export default foo;
 ```
 
 ## Project Structure and Development Areas
@@ -105,7 +105,7 @@ The project use Node Js built-in modules `node:test` and `node:assert` for unit 
 ### Coverage Report, upload to Codecov
 
 - Generate `lcov` report using cli flag `--experimental-test-coverage` to `test/lcov.info`.
-- Convert `lcov` string to codecov json format and write to `coverage/codecov.json` , see in `opt/lcov.ts` and `codecov.ts`.
+- Convert `lcov` string to codecov json format and write to `coverage/codecov.json` , see in `opt/lcov.ts` and `opt/codecov.ts`.
 - Upload to Codecov by Github Action , configuration file at `.github/workflows/codecov.yml`.
 
 ## Bundling , Compiling and Build
@@ -115,7 +115,7 @@ The project uses own building process , see in:
 - `opt/mergeImports.ts`
 - `opt/bundle.ts`
 - `opt/compile.ts`
-- `build.ts`
+- `opt/build.ts`
 
 ## Pull Request Process
 

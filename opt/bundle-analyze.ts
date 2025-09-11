@@ -1,9 +1,9 @@
+import path from "node:path";
 import {
+	type BundleAnalyzerOptions,
 	createAndUploadReport,
 	type Options,
-	type BundleAnalyzerOptions,
 } from "@codecov/bundle-analyzer";
-import path from "node:path";
 
 const buildDirs = [path.resolve(process.cwd(), "dist")];
 

@@ -1,4 +1,4 @@
-import lcovToCodecov from "./opt/codecov";
+import lcovToCodecov from "./opt/lcov";
 import { wait, writeOutFile, readFile, resolvePath } from "./opt/helpers";
 
 async function codecov() {

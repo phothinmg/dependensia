@@ -12,10 +12,10 @@ format:
 	@npm run $@
 
 test:
-	@npx tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info --test-update-snapshots
+	@npm run $@
 
-coverage:test
-	@npx tsx codecov.ts
+coverage:
+	@npm run $@
 
 build:
 	@npm run $@

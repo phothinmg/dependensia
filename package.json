@@ -1,57 +1,59 @@
 {
-	"name": "dependensia",
-	"version": "0.0.3",
-	"description": "Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs",
-	"scripts": {
-		"lint": "biome check src --write && biome check opt --write",
-		"format": "biome format --write",
-		"build": "tsx build.ts"
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.cts",
-	"exports": {
-		".": {
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			},
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			}
-		}
-	},
-	"keywords": [
-		"dependencies",
-		"dependency",
-		"graph",
-		"circular"
-	],
-	"files": [
-		"dist",
-		"LICENSE",
-		"readme.md",
-		"package.json"
-	],
-	"author": "Pho Thin Mg <phothinmg@disroot.org>",
-	"license": "Apache-2.0",
-	"type": "module",
-	"devDependencies": {
-		"@biomejs/biome": "^2.2.2",
-		"@types/node": "^24.3.1",
-		"tsx": "^4.20.5",
-		"typescript": "^5.9.2"
-	},
-	"publishConfig": {
-		"provenance": true,
-		"access": "public"
-	},
-	"repository": {
-		"url": "git+https://github.com/phothinmg/dependensia.git",
-		"type": "git"
-	},
-	"bugs": {
-		"url": "https://github.com/phothinmg/dependensia/issues"
-	}
+  "name": "dependensia",
+  "version": "0.0.3",
+  "description": "Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs",
+  "scripts": {
+    "lint": "biome check src --write && biome check opt --write",
+    "format": "biome format --write",
+    "test": "tsx --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=test/lcov.info",
+    "coverage": "tsx codecov.ts",
+    "build": "tsx build.ts"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "keywords": [
+    "dependencies",
+    "dependency",
+    "graph",
+    "circular"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "readme.md",
+    "package.json"
+  ],
+  "author": "Pho Thin Mg <phothinmg@disroot.org>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
+    "@types/node": "^24.3.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/phothinmg/dependensia.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/phothinmg/dependensia/issues"
+  }
 }

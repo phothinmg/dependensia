@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+npm run lint
+
+SUCCESS=$?
+
+[ $SUCCESS -ne 0 ] && exit 1
+exit 0

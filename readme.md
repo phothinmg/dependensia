@@ -1,6 +1,6 @@
 # dependensia
 
-[![codecov][codecov-svg]][codecov-project]
+[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project] [![codecov][codecov-svg]][codecov-project]
 
 A static analysis tool designed to examine TypeScript and JavaScript projects and produce dependency graphs,using TypeScript APIs.
 
@@ -56,50 +56,52 @@ dependensia(entry).then((analysis) => {
 
 ## API
 
-**dependensia(entry:string)**
+**`dependensia(entry:string)`**
 
-Returns a Promise resolved object.
+### Dependensia Interface Overview
 
-1. `chain: () => Record<string, string[]>;` :: The dependency chain of the graph, where each key is a file and the value is an array of files that the key depends on.
+The Dependensia interface defines 12 methods that provide access to different aspects of the dependency analysis.
 
-2. `circular: () => CircularDependency[];` :: A circular dependency is when a file depends on another file, either directly or indirectly, and the other file also depends on the first file.
+### Method Categories
 
-3. `dependents: (file: string) => string[];` :: An array of files that depend on the given file.
+#### Structural Analysis Methods
 
-4. `deps: () => Record<string, string[]>;` :: The dependency graph as an object where the keys are files and the values are arrays of dependencies.
+These methods provide insights into the structural properties of the dependency graph, including ordering, cycles, and relationship patterns.
 
-5. `entryToLeaf: () => string[][];` :: Returns the list of entry files to leaf files dependency chains.
+| Method          | Return Type                | Purpose                          |
+| --------------- | -------------------------- | -------------------------------- |
+| `sort()`        | `string[]`                 | Topological sort of dependencies |
+| `circular()`    | `CircularDependency[]`     | Detected circular dependencies   |
+| `mutual()`      | `string[][]`               | Bidirectional dependency pairs   |
+| `leaf()`        | `string[]`                 | Files with no local imports      |
+| `chain()`       | `Record<string, string[]>` | Complete dependency chains       |
+| `entryToLeaf()` | `string[][]`               | Paths from entry to leaf files   |
 
-6. `leaf: () => string[];` :: An array of file paths that don't import any other local files.
+#### Query Methods
 
-7. `mutual: () => string[][];` :: An array of arrays, where each sub-array contains two files that depend on each other mutually.
+These methods provide access to the raw dependency data and allow querying specific relationships.
 
-8. `node: () => string[];` :: The list of dependencies that are built-in Node.js modules.
+| Method                    | Return Type                | Purpose                         |
+| ------------------------- | -------------------------- | ------------------------------- |
+| `deps()`                  | `Record<string, string[]>` | Raw dependency graph            |
+| `dependents(file:string)` | `string[]`                 | Files that depend on given file |
+| `npm()`                   | `string[]`                 | External NPM dependencies       |
+| `node()`                  | `string[]`                 | Node.js built-in modules        |
 
-9. `npm: () => string[];` :: Returns the list of NPM dependencies.
+#### Visualization and Metadata Methods
 
-10. `sort: () => string[];` :: Returns a list of files in topological order.
+These methods provide formatted output and analysis metadata.
 
-11. `textGraph: () => string;` :: The dependency graph as text.
-
-12. `warn: () => string[];` :: The collection of warnings.
+| Method        | Return Type | Purpose                      |
+| ------------- | ----------- | ---------------------------- |
+| `textGraph()` | `string`    | Text representation of graph |
+| `warn()`      | `string[]`  | Analysis warnings            |
 
 ## Contributing
 
 Contributions are welcome for bug fixes, features, documentation, and code quality improvements.
 
-See [CONTRIBUTING.md][file-contribute]
-
-## DeepWiki
-
-[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
-
-A [technical overview and up-to-date documentation][deep-wiki-project] is provided by [DeepWiki][deep-wiki] and is available for asking about the project.
-
-- [Getting Started][getting-started]
-- [API Reference][api-reference]
-- [Architecture][architecture]
-- [Development][development]
+See detail in [CONTRIBUTING.md][file-contribute]
 
 ## License
 

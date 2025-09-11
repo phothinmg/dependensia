@@ -9,8 +9,11 @@ on:
     branches: [main]
 
 jobs:
-  upload-codecov:
+  upload-lee:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,12 +21,18 @@ jobs:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
       - run: npm install
+      - run: npm run build
+      - uses: codecov/codecov-action@v5
+        env: 
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  upload-codecov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/codecov.json 
-      - name: Build app for production
-        env: 
-          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: npm run build
+      
+        

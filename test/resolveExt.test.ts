@@ -1,5 +1,5 @@
 import { describe, it } from "node:test";
-import { resolveExtension, replaceWithMatchExt } from "../src/lib/resolveExt";
+import { replaceWithMatchExt, resolveExtension } from "../src/lib/resolveExt";
 
 //=
 describe("Resolve extensions", () => {

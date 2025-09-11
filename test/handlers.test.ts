@@ -1,5 +1,5 @@
-import ts from "typescript";
 import { describe, it } from "node:test";
+import ts from "typescript";
 import handlers from "../src/lib/handlers/index.js";
 
 const createES5SourceFile = (str: string) => {
@@ -10,7 +10,7 @@ const createLatestSourceFile = (str: string) => {
 };
 // fake call back
 const processFunction = (arr: string[]) => {
-	return function (str: string) {
+	return (str: string) => {
 		arr.push(str);
 	};
 };

@@ -18,7 +18,7 @@ fi
 for file in $(git diff --cached --name-only | grep '\.(js|ts)$'); do
   npx biome check "$file" --write
   if [ $? -ne 0 ]; then
-    echo "ESLint errors found in $file"
+    echo "check errors found in $file"
     exit 1
   fi
-exit 0
+done

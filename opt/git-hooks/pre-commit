@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Check for trailing whitespace
 for file in $(git diff --cached --name-only | grep -E '\.(js|ts)$'); do
   if grep -q '[[:space:]]$' "$file"; then
@@ -6,7 +6,6 @@ for file in $(git diff --cached --name-only | grep -E '\.(js|ts)$'); do
     exit 1
   fi
 done
- 
 # Check for uncommitted changes in package.json
 if [ -f package.json ]; then
   if [ "$(git diff --cached package.json)" != "" ]; then
@@ -14,11 +13,10 @@ if [ -f package.json ]; then
     exit 1
   fi
 fi
+# check js and ts with biome
+npx biome check $(git diff --cached --name-only | grep -E '\.(js|ts)$') --write
+if [ $? -ne 0 ]; then
+  echo "check errors found"
+  exit 1
+fi
 
-for file in $(git diff --cached --name-only | grep '\.(js|ts)$'); do
-  npx biome check "$file" --write
-  if [ $? -ne 0 ]; then
-    echo "check errors found in $file"
-    exit 1
-  fi
-done

@@ -1,4 +1,4 @@
-name: Upload coverage reports to Codecov
+name: Upload reports to Codecov
 permissions:
   contents: read
 
@@ -18,3 +18,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/codecov.json 
+      - name: Build app for production
+        env: 
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: npm run build

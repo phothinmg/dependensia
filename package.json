@@ -7,7 +7,7 @@
     "format": "biome format --write",
     "test": "tsx --test test/*.test.ts",
     "coverage": "tsx opt/lcov/index.ts",
-    "build": "tsx opt/build/index.ts"
+    "build": "tsx opt/build/index.ts && node bb.cjs"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -41,6 +41,7 @@
   "type": "module",
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
+    "@codecov/bundle-analyzer": "^1.9.1",
     "@types/node": "^24.3.1",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"

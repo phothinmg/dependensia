@@ -8,6 +8,8 @@ Dependensia is committed to ensuring the security and integrity of our codebase 
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 0.0.1   | :x:                |
+| 0.0.2   | :x:                |
 | 0.0.3   | :white_check_mark: |
 
 ## Reporting a Vulnerability
@@ -32,7 +34,7 @@ When a security vulnerability is reported, we will:
 We use the following classification system to determine the severity of security vulnerabilities:
 
 - **Critical:** Vulnerabilities that can be exploited to gain unauthorized access to sensitive data or systems
-- **High:** Vulnerabilities that can be exploited to cause significant disruption to our service or compromise  user data
+- **High:** Vulnerabilities that can be exploited to cause significant disruption to our service or compromise user data
 - **Medium:** Vulnerabilities that can be exploited to cause moderate disruption to our service or compromise user data
 - **Low:** Vulnerabilities that are unlikely to be exploited or cause significant disruption to our service
 
@@ -51,6 +53,7 @@ We regularly perform security testing and auditing to identify and address poten
 ## Compliance
 
 We comply with all relevant laws and regulations related to security and data protection.
+
 <!-- TODO : List relevant laws and regulations -->
 
 ## Security Contact

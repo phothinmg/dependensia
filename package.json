@@ -7,8 +7,7 @@
 		"format": "biome format --write",
 		"test": "tsx --test test/*.test.ts",
 		"coverage": "tsx opt/lcov/index.ts",
-		"build": "tsx opt/build/index.ts",
-		"push": "tsx opt/push.ts"
+		"build": "tsx opt/build/index.ts"
 	},
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",

@@ -1,6 +1,6 @@
 # dependensia
 
-[![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project] [![codecov][codecov-svg]][codecov-project]
+[![codecov][codecov-svg]][codecov-project]
 
 A static analysis tool designed to examine TypeScript and JavaScript projects and produce dependency graphs,using TypeScript APIs.
 
@@ -112,13 +112,5 @@ See detail in [CONTRIBUTING.md][file-contribute]
 [file-license]: LICENSE
 [file-contribute]: CONTRIBUTING.md
 [ptm]: https://github.com/phothinmg
-[deep-wiki]: https://deepwiki.com/
-[deep-wiki-project]: https://deepwiki.com/phothinmg/dependensia
-[deep-wiki-svg]: https://deepwiki.com/badge.svg
-[getting-started]: https://deepwiki.com/phothinmg/dependensia/2-getting-started
-[api-reference]: https://deepwiki.com/phothinmg/dependensia/3-api-reference
-[architecture]: https://deepwiki.com/phothinmg/dependensia/4-architecture
-[development]: https://deepwiki.com/phothinmg/dependensia/5-development
-[contributing-guidelines]: https://deepwiki.com/phothinmg/dependensia/5.1-contributing-guidelines
 [codecov-svg]: https://codecov.io/gh/phothinmg/dependensia/graph/badge.svg?token=15NLXHS3J9
 [codecov-project]: https://codecov.io/gh/phothinmg/dependensia

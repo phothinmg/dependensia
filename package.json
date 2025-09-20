@@ -1,6 +1,6 @@
 {
 	"name": "dependensia",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Analyze a TypeScript/JavaScript project's dependencies and generates a dependency graph using TypeScript APIs",
 	"scripts": {
 		"lint": "biome check src --write && biome check opt --write",

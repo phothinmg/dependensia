@@ -7,3 +7,7 @@
 ```ts
 import foo from "./bar"// local folder
 ```
+
+## 0.0.7
+
+- Fix missing build dir

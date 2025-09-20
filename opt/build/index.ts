@@ -25,12 +25,12 @@ License at http://www.apache.org/licenses/LICENSE-2.0
  * @returns {OutPutHook} A function that can be used as a hook to add the given string as a banner.
  */
 const bannerText = (str: string): OutPutHook => {
-	return (code, file) => {
-		if (path.extname(file as string) === ".js") {
-			code = `${str}\n${code}`;
-		}
-		return code;
-	};
+  return (code, file) => {
+    if (path.extname(file as string) === ".js") {
+      code = `${str}\n${code}`;
+    }
+    return code;
+  };
 };
 
 /**
@@ -43,13 +43,13 @@ const bannerText = (str: string): OutPutHook => {
  * Note that this function does not return anything. It is only meant to be called directly.
  */
 async function build() {
-	console.time("Build Time");
-	const sourceCode = await bundle(entry);
-	await wait(1000);
-	commonjsCompiler(sourceCode, outDir, entry, [bannerText(licenseText)]);
-	await wait(2000);
-	esmCompiler(sourceCode, outDir, entry, [bannerText(licenseText)]);
-	console.timeEnd("Build Time");
+  console.time("Build Time");
+  const sourceCode = await bundle(entry);
+  await wait(1000);
+  commonjsCompiler(sourceCode, outDir, entry, [bannerText(licenseText)]);
+  await wait(2000);
+  esmCompiler(sourceCode, outDir, entry, [bannerText(licenseText)]);
+  console.timeEnd("Build Time");
 }
-export default build;
-//await build();
+//export default build;
+await build();

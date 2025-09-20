@@ -34,12 +34,13 @@ The project enforces strict code quality standards through automated tooling and
 
 #### Quality Tools and Commands
 
-| Tool            | Command          | Configuration File              | Purpose                           |
-| --------------- | ---------------- | ------------------------------- | --------------------------------- |
-| Biome           | `npm run lint`   | `biome.json`                    | Code formatting and linting       |
-| TypeScript      | `tsc`            | `tsconfig.json`                 | Type checking and compilation     |
-| CodeQL Advanced | github workflows | `.github/workflows/codeql.yml`  | CodeQL Analysis on push or on P/R |
-| Semgrep         | github workflows | `.github/workflows/semgrep.yml` | Code Scanning With Semgrep        |
+| Tool            | Command          | Configuration File                | Purpose                           |
+| --------------- | ---------------- | --------------------------------- | --------------------------------- |
+| Biome           | `npm run lint`   | `biome.json`                      | Code formatting and linting       |
+| TypeScript      | `tsc`            | `tsconfig.json`                   | Type checking and compilation     |
+| CodeQL Advanced | github workflows | `.github/workflows/codeql.yml`   | CodeQL Analysis on push or on P/R |
+| Semgrep         | github workflows | `.github/workflows/semgrep.yml`  | Code Scanning With Semgrep        |
+| OSSF Scorecard  | github workflows | `.github/workflows/scorecard.yml`| Security posture scoring          |
 
 ### Code Style Requirements
 

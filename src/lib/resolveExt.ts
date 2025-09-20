@@ -1,72 +1,120 @@
+import fs from "node:fs";
 import path from "node:path";
-import ts from "typescript";
+
+const allowedExtensions = new Set([
+	"js",
+	"cjs",
+	"mjs",
+	"ts",
+	"mts",
+	"cts",
+	"jsx",
+	"tsx",
+]);
+
+function isDir(filePath: string) {
+	try {
+		const stat = fs.lstatSync(filePath);
+		return stat.isDirectory();
+	} catch (err) {
+		if (
+			typeof err === "object" &&
+			err !== null &&
+			"code" in err &&
+			// biome-ignore lint/suspicious/noExplicitAny: for error log only
+			(err as any).code === "ENOENT"
+		) {
+			return false;
+		}
+		throw err;
+	}
+}
+
+function getFileName(input: string) {
+	return path.basename(input).split(".")[0].trim();
+}
+function getExtensionName(input: string) {
+	return path.basename(input).split(".")[1]?.trim() || "";
+}
 
 /**
- * Resolve a file path with an extension. If the extension is not present, it is
- * automatically resolved from the files in the same directory. If the resolved
- * extension is different from the given extension, the filePath is replaced with
- * the resolved extension.
- *
+ * Resolve a file path with an extension or as a directory module (index file).
  * @param filePath The file path to resolve
  * @returns An object containing the resolved file path and the resolved extension
  */
-function resolveExtension(filePath: string): {
-	result: string;
-	ext: string;
-} {
-	const allowedExtensions = new Set(["js", "cjs", "mjs", "ts", "mts", "cts"]);
-	const trimmedPath = filePath.trim();
-	const dirName = path.dirname(trimmedPath);
-	const baseName = path.basename(trimmedPath);
-	const [fileName, extName = ""] = baseName.split(".");
-	const files = ts.sys.readDirectory(dirName, [
-		"js",
-		"cjs",
-		"mjs",
-		"ts",
-		"mts",
-		"cts",
-	]);
-
-	// Find a file with the same name and allowed extension
-	const match = files
-		.map((f) => {
-			const [name, ext = ""] = path.basename(f).split(".");
-			return { name, ext };
-		})
-		.find((f) => f.name === fileName && allowedExtensions.has(f.ext));
-
-	if (!match) {
-		console.log(`Error in ${filePath}`);
-		//TODO -> Optionally log a warning here
-		throw Error();
-		//process.exit(1);
-	}
-
-	let result: string;
-	if (!extName) {
-		result = `${trimmedPath}.${match.ext}`;
-	} else if (extName === match.ext) {
-		result = trimmedPath;
+function resolveExtension(filePath: string) {
+	let result: string | undefined;
+	let ext: string | undefined;
+	let isDirPath = false;
+	// If it's a directory, look for index file
+	if (isDir(filePath)) {
+		const files = fs.readdirSync(filePath);
+		const found = files.find(
+			(file) =>
+				getFileName(file) === "index" &&
+				allowedExtensions.has(getExtensionName(file)),
+		);
+		if (found) {
+			result = path.join(filePath, found);
+			ext = getExtensionName(found);
+			isDirPath = true;
+		} else {
+			console.error(
+				`${filePath} is a directory and no index file with JS/TS extension found.`,
+			);
+			process.exit(1);
+		}
 	} else {
-		// to fix
-		// detect-non-literal-regexp
-		// https://github.com/phothinmg/dependensia/actions/runs/17573584216/job/49914087146
-		result = trimmedPath.replace(new RegExp(`\\.${extName}$`), `.${match.ext}`);
+		// Not a directory: try to resolve extension
+		const dirName = path.dirname(filePath);
+		const baseName = path.basename(filePath);
+		const [fileName, extName = ""] = baseName.split(".");
+		const files = fs.globSync(
+			`${dirName}/**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx}`,
+		);
+		const match = files
+			.map((f) => {
+				const [name, ext = ""] = path.basename(f).split(".");
+				return { name, ext };
+			})
+			.find((f) => f.name === fileName && allowedExtensions.has(f.ext));
+		if (match) {
+			if (!extName) {
+				result = `${filePath}.${match.ext}`;
+				ext = match.ext;
+			} else if (extName === match.ext) {
+				result = filePath;
+				ext = match.ext;
+			} else {
+				result = filePath.replace(
+					new RegExp(`\\.${extName}$`),
+					`.${match.ext}`,
+				);
+				ext = match.ext;
+			}
+		} else {
+			// If not found, maybe it's a directory import (e.g. ./lib)
+			if (isDir(filePath)) {
+				const files = fs.readdirSync(filePath);
+				const found = files.find(
+					(file) =>
+						getFileName(file) === "index" &&
+						allowedExtensions.has(getExtensionName(file)),
+				);
+				if (found) {
+					result = path.join(filePath, found);
+					ext = getExtensionName(found);
+					isDirPath = true;
+				}
+			}
+		}
 	}
-
-	return { result, ext: match.ext };
+	if (!(result && ext)) {
+		console.error(
+			`When checking ${filePath}, it's not a file or file with unsupported extension`,
+		);
+		process.exit(1);
+	}
+	return { result, ext, isDirPath };
 }
-const replaceWithMatchExt = (inputPath: string, ext: string) => {
-	const _ext = `.${ext}`;
-	const _exn = path.extname(inputPath);
-	if (_exn === "") {
-		return `${inputPath}${_ext}`;
-	} else if (_exn !== "" && _exn !== _ext) {
-		return inputPath.replace(`${_exn}`, `${_ext}`);
-	} else {
-		return inputPath;
-	}
-};
-
-export { replaceWithMatchExt, resolveExtension };
+export default resolveExtension;

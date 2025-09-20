@@ -9,7 +9,7 @@ function lcovToCodecov(lcov: string) {
 		.map((r) => r.trim())
 		.filter(Boolean);
 
-	const coverage = {};
+	const coverage: { [file: string]: Record<number, number> } = {};
 	const regexp = /^.*\.test\.ts$/;
 	const re2 = /^test\/(?:esm|ts)\/.*(?:\.js|\.ts)$/;
 	for (const record of records) {

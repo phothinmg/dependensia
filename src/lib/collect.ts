@@ -7,7 +7,7 @@ import path from "node:path";
 import ts from "typescript";
 import handlers from "./handlers/index.js";
 import type { PackageInfo } from "./packageInfo.js";
-import { replaceWithMatchExt, resolveExtension } from "./resolveExt.js";
+import resolveExtension from "./resolveExt.js";
 import { type CollectedObject, isNodeBuiltinModule } from "./utils.js";
 
 interface CollectedDepsInfo {
@@ -16,22 +16,10 @@ interface CollectedDepsInfo {
 	collectedNodeModules: string[][];
 	collectedWarning: string[][];
 }
+
 /**
  * Recursively traverse the given file and its dependencies to collect
  * local, node builtin, and npm dependencies.
- *
- * @param entry The entry file of the project
- * @param pkg The package.json object of the project
- * @param root The root directory of the project
- * @returns An object containing
- * - `dependencies`: An array of objects containing the file path, index, and
- *   imported files of each dependency
- * - `collectedNodeModules`: An array of arrays of node builtin modules used
- *   in each dependency
- * - `collectedNpmModules`: An array of arrays of npm modules used in each
- *   dependency
- * - `collectedWarning`: An array of arrays of unknown dependencies used in
- *   each dependency
  */
 function collectDependencies(
 	entry: string,
@@ -47,7 +35,7 @@ function collectDependencies(
 		const absPath = path.resolve(root, file);
 		if (visited.has(absPath)) return;
 		visited.add(absPath);
-		const { result: checkedAbsPath, ext: matchExt } = resolveExtension(absPath);
+		const { result: checkedAbsPath } = resolveExtension(absPath);
 		if (!fs.existsSync(checkedAbsPath)) {
 			dependencies.push({
 				file: absPath,
@@ -71,35 +59,45 @@ function collectDependencies(
 		function processModule(moduleText: string): void {
 			// Handle : Imported local dependencies of a file.
 			if (moduleText.startsWith(".") || moduleText.startsWith("..")) {
-				// replace with matched extension found by resolveExtension function.
-				const checkedModuleText = replaceWithMatchExt(moduleText, matchExt);
-				// resolve local imported path to relative path.
-				const resolvedImport = path.relative(
-					root,
-					path.resolve(path.dirname(checkedAbsPath), checkedModuleText),
+				// Try to resolve as file or directory
+				const resolvedModulePath = path.resolve(
+					path.dirname(checkedAbsPath),
+					moduleText,
 				);
-				importFiles.push(resolvedImport);
+				// biome-ignore lint/suspicious/noExplicitAny: just let
+				let resolved: Record<string, any> = {};
+				try {
+					resolved = resolveExtension(resolvedModulePath);
+				} catch {
+					// fallback: treat as file with extension
+					resolved = {
+						result: resolvedModulePath,
+						ext: path.extname(resolvedModulePath).slice(1),
+						isDirPath: false,
+					};
+				}
+				const relImport = path.relative(root, resolved.result);
+				importFiles.push(relImport);
 			}
 			// Handle : Imported dependencies of node builtin modules of a file.
 			else if (isNodeBuiltinModule(moduleText)) {
 				nodeModules.push(moduleText);
 			}
+			// Handle : Imported npm dependencies of a file
 			// Handle : Imported npm dependencies of a file, by checking local package.json
 			// currently only check for these dependencies are  installed or not, depend on project's package.json
 			// TODO try for provide information such as exported files , to use in bundle process
 			else if (pkg.all.includes(moduleText)) {
 				npmModules.push(moduleText);
 			}
-			// Handle : Unknown dependencies,uninstalled npm modules will be collected.
+			// Unknown dependencies
 			// local dependencies are checked before by resolveExtension function.
 			// TODO try for analyze these errors and provide analyzed report.
 			else {
 				warn.push(moduleText);
 			}
-		} //processModule
-
+		}
 		ts.forEachChild(sourceFile, (node) => handlers(node, processModule));
-
 		dependencies.push({
 			file: absPath,
 			index,
@@ -119,6 +117,5 @@ function collectDependencies(
 		collectedWarning,
 	};
 }
-
 export type { CollectedDepsInfo };
 export default collectDependencies;

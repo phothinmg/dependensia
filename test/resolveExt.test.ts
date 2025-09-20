@@ -1,5 +1,5 @@
 import { describe, it } from "node:test";
-import { replaceWithMatchExt, resolveExtension } from "../src/lib/resolveExt";
+import resolveExtension from "../src/lib/resolveExt";
 
 //=
 describe("Resolve extensions", () => {
@@ -15,28 +15,6 @@ describe("Resolve extensions", () => {
 		const resolve = resolveExtension(filePath);
 		const result = resolve.result;
 		const expected = "./test/ts/foo.ts";
-		t.assert.deepEqual(result, expected);
-	});
-	it("should throw error if file path does not exist", (t) => {
-		const filePath = "path/to/non-existent-file";
-		t.assert.throws(() => resolveExtension(filePath));
-	});
-	it("should replace extension with without extension", (t) => {
-		const filePath = "./test/esm/foo";
-		const result = replaceWithMatchExt(filePath, "js");
-		const expected = "./test/esm/foo.js";
-		t.assert.deepEqual(result, expected);
-	});
-	it("should replace extension with different extension", (t) => {
-		const filePath = "./test/esm/foo.js";
-		const result = replaceWithMatchExt(filePath, "ts");
-		const expected = "./test/esm/foo.ts";
-		t.assert.deepEqual(result, expected);
-	});
-	it("should replace extension with same extension", (t) => {
-		const filePath = "./test/esm/foo.js";
-		const result = replaceWithMatchExt(filePath, "js");
-		const expected = "./test/esm/foo.js";
 		t.assert.deepEqual(result, expected);
 	});
 });

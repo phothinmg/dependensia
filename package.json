@@ -41,8 +41,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.2",
-		"@codecov/bundle-analyzer": "^1.9.1",
-		"@types/node": "^24.3.1",
+		"@types/node": "^24.5.2",
 		"tsx": "^4.20.5",
 		"typescript": "^5.9.2"
 	},

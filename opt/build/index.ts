@@ -51,5 +51,5 @@ async function build() {
   esmCompiler(sourceCode, outDir, entry, [bannerText(licenseText)]);
   console.timeEnd("Build Time");
 }
-//export default build;
+
 await build();

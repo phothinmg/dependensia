@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
-      - run: npm install
-      - run: npm run build
-      - run: npm publish --provenance --access public
+      - run: npx npm@10.8.2 install
+      - run: npx npm@10.8.2 run build
+      - run: npx npm@10.8.2 publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN }}

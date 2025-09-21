@@ -1,16 +1,21 @@
 # Global code owners
-# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# See <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>
 
 # Default owners for everything in the repo
+
 * @phothinmg
 
 # Core source code
+
 /src/ @phothinmg
 
 # Build and optimization scripts  
+
 /opt/ @phothinmg
 
 # Configuration files
+
 *.json @phothinmg
 *.js @phothinmg
 *.ts @phothinmg
@@ -18,16 +23,20 @@ biome.json @phothinmg
 tsconfig.json @phothinmg
 
 # Documentation
+
 *.md @phothinmg
 /docs/ @phothinmg
 
 # GitHub workflows and configuration
+
 /.github/ @phothinmg
 
 # Security and license files
+
 /SECURITY.md @phothinmg
 /LICENSE @phothinmg
 
 # Package configuration
+
 /package.json @phothinmg
 /package-lock.json @phothinmg

@@ -19,6 +19,7 @@ To enable proper branch protection detection by OSSF Scorecard:
 Navigate to **Settings** → **Branches** and add protection rules for the `main` branch:
 
 #### Required Settings:
+
 - ✅ **Require a pull request before merging**
   - ✅ **Require approvals** (minimum 1)
   - ✅ **Require review from CODEOWNERS**

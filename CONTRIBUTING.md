@@ -38,6 +38,7 @@ The project enforces strict code quality standards through automated tooling and
 | --------------- | ---------------- | --------------------------------- | --------------------------------- |
 | Biome           | `npm run lint`   | `biome.json`                      | Code formatting and linting       |
 | TypeScript      | `tsc`            | `tsconfig.json`                   | Type checking and compilation     |
+| CI Workflow     | github workflows | `.github/workflows/ci.yml`       | Comprehensive CI checks for PRs   |
 | CodeQL Advanced | github workflows | `.github/workflows/codeql.yml`   | CodeQL Analysis on push or on P/R |
 | Semgrep         | github workflows | `.github/workflows/semgrep.yml`  | Code Scanning With Semgrep        |
 | OSSF Scorecard  | github workflows | `.github/workflows/scorecard.yml`| Security posture scoring          |
@@ -126,11 +127,21 @@ Pull requests undergo a systematic review process ensuring code quality and proj
 
 - Branch created from `main`
 - Code follows project style guidelines
-- All automated checks pass
+- All automated checks pass (CI, CodeQL, Semgrep)
 - Tests added for new functionality
 - Documentation updated where necessary
 - PR description explains changes clearly
 - Related issues referenced
+- **Code owner approval required** (as defined in `.github/CODEOWNERS`)
+
+### Required Status Checks
+
+All pull requests must pass the following automated checks before merging:
+
+- **CI Workflow**: Linting, testing, building, and type checking
+- **CodeQL Analysis**: Security and code quality scanning
+- **Semgrep**: Additional security scanning
+- **Code Owner Review**: Manual review and approval from designated code owners
 
 ### Review Criteria
 
@@ -139,6 +150,27 @@ Pull requests undergo a systematic review process ensuring code quality and proj
 - Compatibility with existing API surface
 - Performance impact consideration
 - Documentation completeness
+
+## Branch Protection and Code Ownership
+
+This repository implements branch protection rules to maintain code quality and security:
+
+### Code Ownership
+
+The `.github/CODEOWNERS` file defines code ownership patterns:
+- All code requires review and approval from the repository owner (@phothinmg)
+- Specific patterns for core areas: source code, build scripts, configuration files
+- Security and documentation files have dedicated ownership
+
+### Branch Protection Rules
+
+The `main` branch is protected with the following requirements:
+- **Pull Request Required**: Direct pushes are not allowed
+- **Required Status Checks**: All CI checks must pass before merging
+- **Code Owner Review Required**: At least one code owner must approve changes
+- **Up-to-date Branch**: PRs must be current with the base branch before merging
+
+These protections ensure code quality and help maintain a high OSSF Scorecard security rating.
 
 ## Documentation
 

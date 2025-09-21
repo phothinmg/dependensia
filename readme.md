@@ -1,6 +1,6 @@
 # dependensia
 
-[![codecov][codecov-svg]][codecov-project] [![OSSF-Scorecard][ossf-scorecard-svg]][ossf-scorecard-project] [![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
+[![codecov][codecov-svg]][codecov-project] [![Ask DeepWiki][deep-wiki-svg]][deep-wiki-project]
 
 A static analysis tool designed to examine TypeScript and JavaScript projects and produce dependency graphs,using TypeScript APIs.
 
@@ -114,7 +114,5 @@ See detail in [CONTRIBUTING.md][file-contribute]
 [ptm]: https://github.com/phothinmg
 [codecov-svg]: https://codecov.io/gh/phothinmg/dependensia/graph/badge.svg?token=15NLXHS3J9
 [codecov-project]: https://codecov.io/gh/phothinmg/dependensia
-[ossf-scorecard-svg]: https://api.securityscorecards.dev/projects/github.com/phothinmg/dependensia/badge
-[ossf-scorecard-project]: https://securityscorecards.dev/viewer/?uri=github.com/phothinmg/dependensia
 [deep-wiki-project]: https://deepwiki.com/phothinmg/dependensia
 [deep-wiki-svg]: https://deepwiki.com/badge.svg

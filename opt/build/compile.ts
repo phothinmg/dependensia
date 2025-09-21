@@ -6,6 +6,21 @@ export type OutPutHook = (code: string, file?: string) => string;
 // biome-ignore lint/suspicious/noExplicitAny: call hooks
 export type OutPutHookFunc = (...args: any[]) => OutPutHook;
 
+/**
+ * Compile the source code to CommonJS format.
+ *
+ * This function takes in the source code to be compiled, the output directory,
+ * the file name of the source code, and an optional array of output hooks.
+ * The output hooks are functions that take in the compiled code and the file name
+ * and return the modified code.
+ *
+ * The function returns a Promise that resolves when the compilation is complete.
+ *
+ * @param {string} sourceCode - The source code to be compiled.
+ * @param {string} outDir - The output directory.
+ * @param {string} fileName - The file name of the source code.
+ * @param {OutPutHook[]} [hooks] - An optional array of output hooks.
+ */
 const commonjsCompiler = async (
 	sourceCode: string,
 	outDir: string,
@@ -74,6 +89,15 @@ const commonjsCompiler = async (
 	console.timeEnd("Compiled Commonjs");
 };
 
+/**
+ * Compile the given source code to ESM format.
+ *
+ * @param {string} sourceCode The source code to compile.
+ * @param {string} outDir The output directory for the compiled files.
+ * @param {string} fileName The name of the source file.
+ * @param {OutPutHook[]} [hooks] An array of functions to run on the output code.
+ * @returns {Promise<void>}
+ */
 const esmCompiler = async (
 	sourceCode: string,
 	outDir: string,

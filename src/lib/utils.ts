@@ -7,12 +7,22 @@ type CollectedObject = {
 	importFiles: string[];
 };
 
+/**
+ * Check if a given module is a Node.js built-in module.
+ * @param {string} input - The module to check.
+ * @returns {boolean} True if the module is a Node.js built-in module, false otherwise.
+ */
 const isNodeBuiltinModule = (input: string): boolean => {
 	const nodeModuleSpecifier: string = "node:";
 	const nodeBuiltinModules = new Set<string>(module.builtinModules);
 	return input.startsWith(nodeModuleSpecifier) || nodeBuiltinModules.has(input);
 };
 
+/**
+ * Create a dependency graph from a list of collected dependencies.
+ * @param {CollectedObject[]} deps - A list of collected dependencies.
+ * @returns {Record<string, string[]>} A dependency graph where each key is a file path and each value is an array of files that the key file depends on.
+ */
 const createGraph = (deps: CollectedObject[]): Record<string, string[]> => {
 	const graph: Record<string, string[]> = {};
 
@@ -23,6 +33,11 @@ const createGraph = (deps: CollectedObject[]): Record<string, string[]> => {
 	return graph;
 };
 
+/**
+ * Merge an array of string arrays into a single string array.
+ * @param {string[][]} input - An array of string arrays to merge.
+ * @returns {string[]} A single string array containing all the elements from the input arrays.
+ */
 const mergeStringArr = (input: string[][]): string[] => {
 	return input.reduce((prev, curr) => prev.concat(curr), []);
 };

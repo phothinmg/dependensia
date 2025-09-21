@@ -7,6 +7,12 @@ type Dep = {
 	filePath: string;
 	fileContent: string;
 };
+/**
+ * Bundles the given entry file with its dependencies.
+ *
+ * @param entry The entry file to bundle.
+ * @returns A string containing the bundled code.
+ */
 async function bundle(entry: string) {
 	console.time("Bundled");
 	// Handle : dependencies

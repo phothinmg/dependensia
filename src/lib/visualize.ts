@@ -1,5 +1,11 @@
+
 /**
- * Visualize dependency graph as text
+ * Visualize a dependency graph as a string.
+ * The visualization is a simple text-based tree structure.
+ * Each file is represented by its name, and its dependencies are listed underneath it.
+ * If a file has no dependencies, it is represented by "(no dependencies)".
+ * @param {Record<string, string[]>} depObj - The dependency graph to visualize.
+ * @returns {string} - The visualized dependency graph as a string.
  */
 function visualizeDependencies(depObj: Record<string, string[]>): string {
 	let result = "Dependency Graph:\n\n";

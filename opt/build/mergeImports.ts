@@ -1,3 +1,20 @@
+/**
+ * Merge multiple import statements into a single import statement.
+ *
+ * The function takes an array of import statements and returns a new array of import statements.
+ * The returned array will have the following properties:
+ * - All named imports will be merged into a single import statement.
+ * - All default imports will be merged into a single import statement.
+ * - All type-only imports will be merged into a single type import statement.
+ * - All type-only default imports will be merged into a single type default import statement.
+ * - All namespace imports will be merged into a single namespace import statement.
+ *
+ * The function will remove any duplicate imports and will sort the imports alphabetically.
+ *
+ * Example:
+ * Input: ["import { foo, bar } from 'module'", "import { baz } from 'module'"]
+ * Output: ["import { bar, baz, foo } from 'module'"]
+ */
 function mergeImports(imports: string[]): string[] {
 	const importMap = new Map<string, Set<string>>();
 	const typeImportMap = new Map<string, Set<string>>();
